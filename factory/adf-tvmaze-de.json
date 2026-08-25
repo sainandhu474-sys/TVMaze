@@ -1,0 +1,15 @@
+{
+	"name": "adf-tvmaze-de",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "bf54619b-f301-4f0d-9cb5-2b8a5aa265e3",
+		"tenantId": "378372ca-91db-469a-8c51-2dcfdd2900f4"
+	}
+}
