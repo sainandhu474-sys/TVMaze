@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Job1",
+				"name": "NOTEBOOK",
 				"type": "DatabricksJob",
 				"dependsOn": [],
 				"policy": {
