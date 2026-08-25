@@ -189,15 +189,11 @@ LOCATION 'abfss://raw@sttvmazede2026.dfs.core.windows.net/silver/shows'
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC select count(*) from tvmaze.default.bronze_shows;
-# MAGIC select count(*) from tvmaze.default.silver_shows;
-# MAGIC select count(*) from tvmaze.default.gold_shows;
-# MAGIC
+
 
 # COMMAND ----------
 
-# Cell 20 - Create fact_show_data
+
 
 from pyspark.sql.functions import col, year
 
@@ -234,7 +230,6 @@ display(fact_show_data.limit(20))
 
 # COMMAND ----------
 
-# Cell 21 - Save fact_show_data as Delta
 
 fact_path = "abfss://raw@sttvmazede2026.dfs.core.windows.net/gold/fact_show_data"
 
@@ -249,7 +244,7 @@ print(fact_path)
 
 # COMMAND ----------
 
-# Cell 22 - Register fact_show_data in Unity Catalog
+
 
 spark.sql("""
 CREATE TABLE IF NOT EXISTS tvmaze.default.fact_show_data
@@ -257,16 +252,11 @@ USING DELTA
 LOCATION 'abfss://raw@sttvmazede2026.dfs.core.windows.net/gold/fact_show_data'
 """)
 
-print("tvmaze.default.fact_show_data registered successfully.")
+
 
 # COMMAND ----------
 
-# Cell 23 - Verify fact_show_data
 
-print(
-    "fact_show_data records:",
-    spark.table("tvmaze.default.fact_show_data").count()
-)
 
 display(
     spark.sql("""
@@ -286,7 +276,7 @@ display(
 
 # COMMAND ----------
 
-# Cell 24 - Gold analytics
+
 
 display(
     spark.sql("""
@@ -303,7 +293,7 @@ display(
 
 # COMMAND ----------
 
-# Cell 25 - Top 20 rated shows
+
 
 display(
     spark.sql("""
@@ -323,7 +313,7 @@ display(
 
 # COMMAND ----------
 
-# Cell 26 - Shows by country
+
 
 display(
     spark.sql("""
@@ -340,7 +330,6 @@ display(
 
 # COMMAND ----------
 
-# Cell 27 - Shows by premiere year
 
 display(
     spark.sql("""
@@ -357,34 +346,34 @@ display(
 
 # COMMAND ----------
 
-# Cell 28 - Optimize Gold table
+
 
 spark.sql("""
 OPTIMIZE tvmaze.default.gold_shows
 """)
 
-print("Gold table optimized successfully.")
+
 
 # COMMAND ----------
 
-# Cell 29 - Optimize fact_show_data
+
 
 spark.sql("""
 OPTIMIZE tvmaze.default.fact_show_data
 """)
 
-print("fact_show_data optimized successfully.")
+
 
 # COMMAND ----------
 
-# Cell 30 - Z-Order fact_show_data
+
 
 spark.sql("""
 OPTIMIZE tvmaze.default.fact_show_data
 ZORDER BY (country_name, status, rating)
 """)
 
-print("fact_show_data Z-Order optimization completed.")
+
 
 # COMMAND ----------
 
